@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using RestfulApi.Models;
 
 namespace RestfulApi.Controllers
 {
@@ -14,8 +15,4 @@ namespace RestfulApi.Controllers
         }
     }
 
-    public class DataInputModel
-    {
-        public string InputData { get; set; }
-    }
 }
