@@ -14,11 +14,11 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
 
 app.UseAuthorization();
 
 app.MapControllers();
-app.MapRazorPages(); // This line ensures Razor Pages are mapped
-
+app.MapRazorPages();
 
 app.Run();
