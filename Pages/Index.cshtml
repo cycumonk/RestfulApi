@@ -4,5 +4,37 @@
     ViewData["Title"] = "Home Page";
 }
 
-<h2>Welcome to your Web API!</h2>
-<p>This is the index page of your Web API project.</p>
+<body>
+    <h1>Submit Data</h1>
+    <form id="dataForm">
+        <label for="inputData">Enter some data:</label>
+        <input type="text" id="inputData" name="inputData" required>
+        <button type="submit">Submit</button>
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('dataForm').addEventListener('submit', async function(event) {
+            event.preventDefault(); // 防止表單的默認提交行為
+
+            // 獲取輸入框的值
+            const inputData = document.getElementById('inputData').value;
+
+            // 發送資料到後端 API
+            const response = await fetch('/api/v1/data', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ inputData: inputData })
+            });
+
+            // 解析後端回應的 JSON
+            const result = await response.json();
+
+            // 在前端頁面上顯示後端的回應
+            document.getElementById('result').innerText = `Response from server: ${result.message}`;
+        });
+    </script>
+</body>
