@@ -15,26 +15,30 @@
     <div id="result"></div>
 
     <script>
-        document.getElementById('dataForm').addEventListener('submit', async function(event) {
-            event.preventDefault(); // 防止表單的默認提交行為
+        document.getElementById('dataForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // 防止表單的默認提交行為
 
-            // 獲取輸入框的值
-            const inputData = document.getElementById('inputData').value;
+    // 獲取輸入框的值
+    const inputData = document.getElementById('inputData').value;
 
-            // 發送資料到後端 API
-            const response = await fetch('/api/v1/data', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ inputData: inputData })
-            });
+    try {
+        // 發送資料到後端 API
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/api/v1/data", false); // false 表示同步請求
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify({ inputData: inputData }));
 
-            // 解析後端回應的 JSON
-            const result = await response.json();
-
+        if (xhr.status === 200) {
+            var result = JSON.parse(xhr.responseText);
             // 在前端頁面上顯示後端的回應
             document.getElementById('result').innerText = `Response from server: ${result.message}`;
-        });
+        } else {
+            console.error('Error:', xhr.statusText);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+});
+
     </script>
 </body>

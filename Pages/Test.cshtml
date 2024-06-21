@@ -1,0 +1,32 @@
+@page
+@model RestfulApi.Pages.TestModel
+@{
+    ViewData["Title"] = "Test Page";
+}
+
+<body>
+    <h1>Test API Call</h1>
+    <button id="fetchButton">Fetch Data</button>
+    <pre id="result"></pre>
+
+    <script>
+        document.getElementById('fetchButton').addEventListener('click', function () {
+            // 發送GET請求到API
+            fetch('/api/v1/test')
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error('Network response was not ok: ' + response.statusText);
+                    }
+                })
+                .then(result => {
+                    // 在前端頁面上顯示後端的回應
+                    document.getElementById('result').innerText = JSON.stringify(result, null, 2);
+                })
+                .catch(error => {
+                    document.getElementById('result').innerText = 'Error: ' + error.message;
+                });
+        });
+    </script>
+</body>

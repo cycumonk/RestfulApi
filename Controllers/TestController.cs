@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace RestfulApiProject.Controllers
+namespace RestfulApi.Controllers
 {
     [ApiController]
     [Route("api/v1/[controller]")]
